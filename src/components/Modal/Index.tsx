@@ -8,7 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Scan from '../Scan';
 
 import {ModalView
-} from './style';
+} from './styles';
 import BackButton from '../BackButton/Index';
 
 interface ModalProps {
@@ -51,7 +51,6 @@ export function ModalCartao({
 			<ModalView>
 				<Scan setValue={redirectConsulta}></Scan>
 			</ModalView>
-			<BackButton onPress={()=> closeModal()}/>
 		</Modal>
 	);
 }

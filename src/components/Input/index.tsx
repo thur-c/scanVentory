@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { InputContainer, MainContainer, TextInput } from './styles';
 
-export default function Input({name, value, editable}){
+export default function Input({label, ...inputProps}: any){
 
+	function handleText(e :any){
+		//(e)=> handleText(setValue)
+	}
 
 	return(
 		<MainContainer>
-			<TextInput>{name}</TextInput>
-			<InputContainer  value={value} editable={editable}></InputContainer>
+			<TextInput>{label}</TextInput>
+			<InputContainer {...inputProps}>
+			</InputContainer>
 
 		</MainContainer>
 

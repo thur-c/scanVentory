@@ -1,12 +1,12 @@
 import styled from 'styled-components/native';
 
 export const MainContainer = styled.SafeAreaView`
-  width: 40%;
+  width: 100%;
   justify-content: center;
   align-items: flex-start;
-  margin-top: 10px;
+  margin-top: 5px;
   margin-right: 10px;
-  flex-grow: 1;
+  flex-grow: 2;
 `;
 export const InputContainer = styled.TextInput`
   width: 100%;
@@ -17,7 +17,6 @@ export const InputContainer = styled.TextInput`
   font-size: 20px;
   border-radius: 8px;
   color: #000;
-  box-shadow: 0px 0px 10px #fff;
 `;
 
 export const TextInput = styled.Text`

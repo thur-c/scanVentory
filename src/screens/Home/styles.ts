@@ -18,6 +18,8 @@ export const BaseButton = styled.TouchableOpacity`
   height: 85px;
   border-radius: 20px;
   margin-bottom: 2%;
+  border: 3px solid #000;
+
 `;
 
 
@@ -30,5 +32,22 @@ export const MainText = styled.Text`
   color: #fff;
 `;
 
+//STYLESHEET
+
+import { StyleSheet } from 'react-native';
 
 
+
+export const styles = StyleSheet.create({
+	shadow: {
+		shadowColor: '#3ac0ff',
+		shadowOffset: {
+			width: 0,
+			height: 10,
+		},
+		shadowOpacity: 0.41,
+		shadowRadius: 9.11,
+		elevation: 24,
+	},
+
+});

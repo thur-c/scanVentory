@@ -76,8 +76,8 @@ export default function Scan({ setValue }: ScanProps) {
 		<>
 			<CameraView>
 				<CameraScan
-					changeHeight={orientation === 1 && orientation !== 2 ? '1300px' : '800px'}
-					changeWidth={orientation === 1 && orientation !== 2 ? '1000px' : '1440px'}
+					changeHeight={orientation === 1 && orientation !== 2 ? '100%' : '800px'}
+					changeWidth={orientation === 1 && orientation !== 2 ? '660px' : '1440px'}
 					type={cameraDirection}
 					onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
 					flashMode={flash}
