@@ -53,7 +53,7 @@ export function Info({navigation}: Info) {
 				if(value !== null) {
 					// value previously stored
 
-					if (value) {
+					if (!value) {
 						//alert('Dispositivo não encontrado no banco de dados');
 						handleButton();
 						setData({
@@ -79,25 +79,6 @@ export function Info({navigation}: Info) {
 		};
 		getData();
 	}, []);
-
-	// const nobreak = {
-	// 	nome:' ',
-	// 	status:'',
-	// 	tomadas: '',
-	// 	bivolt: '',
-	// 	entrada: '',
-	// 	saida: '',
-
-	// };
-
-	// const pc = {
-	// 	nome: '',
-	// 	tipo:'',
-	// 	memoria:'',
-	// 	ssd: '',
-	// 	fonteBateria:'',
-	// 	so: '',
-	// };
 
 	const DATA = [
 		{

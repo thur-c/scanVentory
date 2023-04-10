@@ -6,7 +6,7 @@ interface nobreakProps{
 
   editable: boolean;
   showBtn: boolean;
-
+  redirect: () => void;
   data: {
     nome:string,
     tomadas: string,
@@ -35,7 +35,7 @@ export function Nobreak({editable, data, showBtn, redirect}: nobreakProps){
 		Toast.show({
 			type: 'error',
 			text1: 'Erro!',
-			text2: 'Os dados não podem ser vazios!',
+			text2: 'Os dados não podem ser vazios.',
 		});
 	}
 

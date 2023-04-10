@@ -11,7 +11,7 @@ type Pc =  NativeStackScreenProps<RootStackParamList, 'Pc'>;
 interface pcProps{
   editable: boolean;
   showBtn: boolean;
-
+  redirect: () => void;
 
   data: {
     nome: string,
@@ -39,16 +39,28 @@ export function Pc({editable, data, showBtn, redirect}: pcProps){
 		});
 	}
 
+	function showError() {
+		Toast.show({
+			type: 'error',
+			text1: 'Erro!',
+			text2: 'Os dados não podem ser vazios.',
+		});
+	}
+
 	function handleCadastro(){
 		try {
-			console.log(nome + ' 1');
-			console.log(ssd + ' 2');
-			console.log(fonteBateria + ' 3');
-			console.log(so + ' 4');
-			console.log(memoria + ' 5');
-			console.log(tipo + ' 6');
-			showToast();
-			redirect();
+			if(nome != null){
+				console.log(nome + ' 1');
+				console.log(ssd + ' 2');
+				console.log(fonteBateria + ' 3');
+				console.log(so + ' 4');
+				console.log(memoria + ' 5');
+				console.log(tipo + ' 6');
+				showToast();
+				redirect();
+			}else{
+				showError();
+			}
 
 
 		} catch (error) {

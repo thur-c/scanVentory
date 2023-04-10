@@ -38,7 +38,7 @@ export function Chamado({navigation}: Chamado){
 		Toast.show({
 			type: 'success',
 			text1: 'Sucesso',
-			text2: 'Chamado aberto',
+			text2: 'Chamado aberto!',
 		});
 	}
 
@@ -74,9 +74,9 @@ export function Chamado({navigation}: Chamado){
 		getData();
 	}, []);
 
-	function handleChamado(){
-		showToast();
+	  function handleChamado(){
 		navigation.navigate('Home');
+		showToast();
 	}
 
 	if (loading === false) {

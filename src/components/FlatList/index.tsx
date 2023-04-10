@@ -1,20 +1,21 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { FlatList } from 'react-native';
 import {  FlatListView, MainContainer,  MainText, TextItemList, TextView, ViewItemList } from './styles';
 
 
 type ItemProps = {title: string};
 
-const Item = ({title}: ItemProps) => (
-	<ViewItemList>
-		<TextItemList>
-      • DATA {title + '\n'}
-      conteúdo
-		</TextItemList>
-	</ViewItemList>
-);
+
 
 export default function Flatlist({listData}: any){
+	const Item = ({title}: ItemProps) => (
+		<ViewItemList>
+			<TextItemList>
+      • Date {title + '\n'}
+        conteúdo
+			</TextItemList>
+		</ViewItemList>
+	);
 	return (
 
 		<MainContainer>

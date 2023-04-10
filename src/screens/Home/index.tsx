@@ -47,7 +47,7 @@ export function Home({navigation}: Home){
 				<Animatable.View animation="fadeInUpBig" duration={1500} delay={1000}>
 
 					<BaseButton style={styles.shadow}
-						onPress={()=>  navigation.navigate('Info')}>
+						onPress={()=>  handleModalInfo()}>
 						<TextBtn>Scanear dispositivo </TextBtn>
 						<Ionicons name="qr-code-outline" size={40} />
 					</BaseButton>
