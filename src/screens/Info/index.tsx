@@ -10,11 +10,11 @@ import Flatlist from '../../components/FlatList';
 import { Image, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
+import { api } from '../../utils/api';
 
 type Info = NativeStackScreenProps<RootStackParamList, 'Info'>;
-
 interface dynamicsFields{
-  id: string,
+  dc_equipamento: string,
   [key: string]: any,
 }
 
@@ -22,8 +22,7 @@ export function Info({navigation}: Info) {
 	const [showBtn, setshowBtn] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [editInput, setEditInput] = useState(false);
-	const [data, setData] = useState<dynamicsFields>({id: ''});
-
+	const [data, setData] = useState<dynamicsFields>({dc_equipamento: ''});
 
 
 	function showToast() {
@@ -51,24 +50,32 @@ export function Info({navigation}: Info) {
 			try {
 				const value = await AsyncStorage.getItem('@codigo');
 				if(value !== null) {
+					let equipamento;
+					let result;
 					// value previously stored
 
-					if (!value) {
+					if (value.split('-').length == 2) {
+						equipamento = 'pc';
+					}else{
+						switch (value.split('-')[1]) {
+						case 'nbk':
+							try {
+								const response = await api.get(`/nobreak/${value}`);
+								result = response.data[0];
+							} catch (error) {
+								console.error(error);
+							}
+							break;
+						}
+					}
+					console.log(result);
+					//`localhost/equipamentos/${equpamento}`
+					if (!result) {
 						//alert('Dispositivo não encontrado no banco de dados');
 						handleButton();
-						setData({
-							id: value,
-							exemp:'',
-						});
+						setData({dc_equipamento: value,});
 					}else{
-						setData({
-							id: value,
-							nome:'NBK T.I',
-							tomadas: '4',
-							bivolt: 'Sim',
-							entrada: '110/220',
-							saida: '110/220',
-						});
+						setData(result);
 					}
 				}
 			} catch(e) {
@@ -124,16 +131,21 @@ export function Info({navigation}: Info) {
 			<BackButton onPress={()=> navigation.goBack()}/>
 			<MainContainer>
 				<TextId>
-					{data.id.toUpperCase()}
+					{data.dc_equipamento.toUpperCase()}
 				</TextId>
 
 
 				<InputContainer>
-					{data.id.split('-').length === 2 &&
-          <Pc redirect={() => handleRedirect()} showBtn={showBtn} data={data} editable={editInput}/>}
 
-					{data.id.split('-').length > 2 && data.id.includes('nbk') &&
-          <Nobreak redirect={() => handleRedirect()} showBtn={showBtn} data={data} editable={editInput}/>}
+					{
+						data.dc_equipamento.split('-').length === 2 &&
+          <Pc redirect={() => handleRedirect()} showBtn={showBtn} data={data} editable={editInput}/>
+					}
+
+					{
+						data.dc_equipamento.split('-').length > 2 && data.dc_equipamento.includes('nbk') &&
+          <Nobreak redirect={() => handleRedirect()} showBtn={showBtn} data={data} editable={editInput}/>
+					}
 
 				</InputContainer>
 				{showBtn === false  && <Flatlist listData={DATA}/>}
