@@ -23,9 +23,9 @@ const chamado = {
 export function Chamado({navigation}: Chamado){
 	const [selectedProblems, setSelectedProblems] = useState<unknown>('Selecione');
 	const [selectedStatus, setSelectedStatus] = useState<unknown>('Ativo');
+	const [arrayProblems, setArrayProblems] = useState(['Selecione', 'Teclado', 'Mouse', 'Monitor', 'Fonte', 'Outros']);
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [loading, setLoading] = useState(false);
-	const [arrayProblems, setArrayProblems] = useState(['Selecione', 'Teclado', 'Mouse', 'Monitor', 'Fonte', 'Outros']);
 
 	const [data, setData] = useState({
 		id: '',
