@@ -10,7 +10,7 @@ export default function Input({label, ...inputProps}: any){
 	return(
 		<MainContainer>
 			<TextInput>{label}</TextInput>
-			<InputContainer {...inputProps}>
+			<InputContainer  {...inputProps}>
 			</InputContainer>
 
 		</MainContainer>

@@ -26,6 +26,6 @@ export const PickerView = styled(Picker)`
 export const TextDrop = styled.Text`
   font-size: 20px;
   margin-left: 10px;
-  font-weight: 800;
+  font-weight: bold;
   color: #fff;
 `;

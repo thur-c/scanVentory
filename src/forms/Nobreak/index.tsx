@@ -19,7 +19,7 @@ interface nobreakProps{
   }
 }
 
-export function Nobreak({editable, data, showBtn, redirect}: nobreakProps){
+export function Nobreak({editable, data, showBtn, redirect}: nobreakProps & any){
 	const [selectedBivolt, setSelectedBivolt] = useState<unknown>(data.bivolt === 1 ? 'SIM' : 'NÃO');
 	const [arrayBivolt, setArrayBivolt] = useState(['Selecione', 'SIM', 'NÃO']);
 	const[nome, setNome] = useState(data.nome);
@@ -45,7 +45,7 @@ export function Nobreak({editable, data, showBtn, redirect}: nobreakProps){
 
 	function handleCadastro(){
 		try {
-			if(nome != null){
+			if(nome != null || selectedBivolt != 'Selecione'){
 
 				api.post('/nobreak', {
 					dc_equipamento: data.dc_equipamento,

@@ -29,7 +29,7 @@ export function Info({navigation}: Info) {
 		Toast.show({
 			type: 'error',
 			text1: 'Atenção!',
-			text2: 'Usuário não cadastrado no banco de dados',
+			text2: 'Dispositivo não cadastrado no banco de dados',
 		});
 	}
 
@@ -56,6 +56,12 @@ export function Info({navigation}: Info) {
 
 					if (value.split('-').length == 2) {
 						equipamento = 'pc';
+						try {
+							const response = await api.get(`/pc/${value}`);
+							result = response.data[0];
+						} catch (error) {
+							console.error(error);
+						}
 					}else{
 						switch (value.split('-')[1]) {
 						case 'nbk':

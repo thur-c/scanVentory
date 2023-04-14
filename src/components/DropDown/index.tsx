@@ -37,7 +37,7 @@ export default function DropDown({
 					mode={'dropdown'}>
 					{
 						data.map((item: string) => (
-							<Picker.Item label={item} value={item} key={item}></Picker.Item>
+							<Picker.Item  label={item} value={item} key={item}></Picker.Item>
 						))
 					}
 

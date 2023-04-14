@@ -5,6 +5,7 @@ import { BtnCadastrar, TextButton } from './styles';
 import Toast from 'react-native-toast-message';
 import { RootStackParamList } from '../../@types/RootStackParamList';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { api } from '../../utils/api';
 
 type Pc =  NativeStackScreenProps<RootStackParamList, 'Pc'>;
 
@@ -14,22 +15,24 @@ interface pcProps{
   redirect: () => void;
 
   data: {
+    dc_equipamento: string,
     nome: string,
 		ssd: string,
-		fonteBateria:string,
+		fonte_bateria:string,
 		so: string,
 		memoria:string,
 		tipo:string,
   }
 }
 
-export function Pc({editable, data, showBtn, redirect}: pcProps){
+export function Pc({editable, data, showBtn, redirect}: pcProps & any){
+	const [selectedTipo, setSelectedTipo] = useState<unknown>(data.tipo === 1 ? 'PC' : 'NOTEBOOK');
+	const [arrayTipo, setArrayTipo] = useState(['Selecione', 'PC', 'NOTEBOOK']);
 	const [nome, setNome] = useState(data.nome);
 	const [ssd, setSsd] = useState(data.ssd);
-	const [fonteBateria, setFonteBateria] = useState(data.fonteBateria);
+	const [fonte_bateria, setFonte_bateria] = useState(data.fonte_bateria);
 	const [so, setSo] = useState(data.so);
 	const [memoria, setMemoria] = useState(data.memoria);
-	const [tipo, setTipo] = useState(data.tipo);
 
 	function showToast() {
 		Toast.show({
@@ -49,13 +52,25 @@ export function Pc({editable, data, showBtn, redirect}: pcProps){
 
 	function handleCadastro(){
 		try {
-			if(nome != null){
-				console.log(nome + ' 1');
-				console.log(ssd + ' 2');
-				console.log(fonteBateria + ' 3');
-				console.log(so + ' 4');
-				console.log(memoria + ' 5');
-				console.log(tipo + ' 6');
+			if(nome != null || selectedTipo != 'Selecione'){
+
+				api.post('/pc', {
+					dc_equipamento: data.dc_equipamento,
+					categoria: 2,
+					nome: nome,
+					ssd: ssd,
+					fonte_bateria: fonte_bateria,
+					so: so,
+					memoria: memoria,
+					tipo: selectedTipo === 'PC' ? 1 : 2,
+				})
+					.then(function (response) {
+						console.log(response);
+					})
+					.catch(function (error) {
+						console.log(error);
+					});
+
 				showToast();
 				redirect();
 			}else{
@@ -73,18 +88,21 @@ export function Pc({editable, data, showBtn, redirect}: pcProps){
 		<>
 			<Input onChangeText={(e: string)=> setNome(e)} label={'Nome'} value={data.nome} editable={editable}/>
 			<Input onChangeText={(e: string)=> setSsd(e)} label={'SSD'} value={data.ssd} editable={editable}/>
-			<Input onChangeText={(e: string)=> setFonteBateria(e)} label={'Fonte/Bateria'} value={data.fonteBateria} editable={editable}/>
+			<Input onChangeText={(e: string)=> setFonte_bateria(e)} label={'Fonte/Bateria'} value={data.fonte_bateria} editable={editable}/>
 			<Input onChangeText={(e: string)=> setSo(e)} label={'S.O'} value={data.so} editable={editable}/>
 			<Input onChangeText={(e: string)=> setMemoria(e)} label={'Memória'} value={data.memoria} editable={editable}/>
-			<Input onChangeText={(e: string)=> setTipo(e)} label={'Pc ou Notebook'} value={data.tipo} editable={editable}/>
-
-
-
+			<DropDown
+				id={1}
+				enabled={editable}
+				selectedItem={selectedTipo}
+				setSelectedItem={setSelectedTipo}
+				data={arrayTipo}
+				name={'PC ou Notebook'}
+			/>
 			{showBtn === true && (<BtnCadastrar onPress={()=> handleCadastro()}>
 				<TextButton>CADASTRAR</TextButton>
 			</BtnCadastrar>)
 			}
-
 
 			{/* <Input name={'Status'} value={data.status} editable={editable}></Input> */}
 		</>
