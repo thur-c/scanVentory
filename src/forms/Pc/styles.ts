@@ -10,6 +10,7 @@ export const BtnCadastrar = styled.TouchableOpacity`
   height: 60px;
   border-radius: 30px;
   margin-top: 4%;
+
 `;
 
 export const TextButton = styled.Text`

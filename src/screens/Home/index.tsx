@@ -52,7 +52,7 @@ export function Home({navigation}: Home){
 						<Ionicons name="qr-code-outline" size={40} />
 					</BaseButton>
 
-					<BaseButton	style={styles.shadow} onPress={() =>handleModalChamado()}>
+					<BaseButton	style={styles.shadow} onPress={() => navigation.navigate('Chamado')}>
 						<TextBtn>Abrir Chamado </TextBtn>
 						<Ionicons name="construct-outline" size={40} />
 					</BaseButton>

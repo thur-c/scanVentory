@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components/native';
 
 
@@ -36,7 +35,7 @@ export const ButtonChamado = styled.TouchableOpacity`
 `;
 
 export const TextButton = styled.Text`
-  color: #fff;
+  color: #000;
   font-size: 25px;
   font-weight: 400;
   letter-spacing: 2px;

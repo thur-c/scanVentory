@@ -77,7 +77,7 @@ export function Nobreak({editable, data, showBtn, redirect}: nobreakProps & any)
 
 	return(
 		<>
-			<Input onChangeText={(e: string)=> setNome(e)} label={'Nome'} value={nome} editable={editable}></Input>
+			<Input placeholder='Ex. Nobreak Tingimento' onChangeText={(e: string)=> setNome(e)} label={'Nome'} value={nome} editable={editable}></Input>
 			<Input keyboardType='numeric' onChangeText={(e: string)=> setTomadas(e)} label={'Quantidade de tomadas'} value={tomadas} editable={editable}/>
 			<DropDown
 				id={1}
@@ -88,8 +88,8 @@ export function Nobreak({editable, data, showBtn, redirect}: nobreakProps & any)
 				name={'Bivolt'}
 
 			/>
-			<Input onChangeText={(e: string)=> setEntrada(e)} label={'Entrada'} value={entrada} editable={editable}/>
-			<Input onChangeText={(e: string)=> setSaida(e)} label={'Saída'} value={saida} editable={editable}/>
+			<Input placeholder='Ex. 110/220V' onChangeText={(e: string)=> setEntrada(e)} label={'Entrada'} value={entrada} editable={editable}/>
+			<Input placeholder='Ex. 110/220V' onChangeText={(e: string)=> setSaida(e)} label={'Saída'} value={saida} editable={editable}/>
 
 			{showBtn === true && (
 				<BtnCadastrar onPress={()=> handleCadastro()}>

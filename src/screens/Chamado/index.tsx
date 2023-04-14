@@ -1,7 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
-import { Text, Image, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { Image } from 'react-native';
 import { RootStackParamList } from '../../@types/RootStackParamList';
 import DropDown from '../../components/DropDown';
 import {  ButtonChamado, HeaderView, InputView, MainContainer, MainText, TextButton } from './styles';
@@ -26,6 +26,7 @@ export function Chamado({navigation}: Chamado){
 	const [arrayProblems, setArrayProblems] = useState(['Selecione', 'Teclado', 'Mouse', 'Monitor', 'Fonte', 'Outros']);
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const [descricao, setDescricao] = useState('');
 
 	const [data, setData] = useState({
 		id: '',
@@ -42,14 +43,19 @@ export function Chamado({navigation}: Chamado){
 		});
 	}
 
+	function showError() {
+		Toast.show({
+			type: 'error',
+			text1: 'Erro!',
+			text2: 'Os dados não podem ser vazios.',
+		});
+	}
+
 	function handleModal() {
 		setIsModalVisible(true);
 	}
 	handleModal;
 	useEffect(() => {
-		console.log(selectedProblems);
-		console.log(selectedStatus);
-
 		const getData = async () => {
 			setLoading(false);
 			try {
@@ -61,9 +67,7 @@ export function Chamado({navigation}: Chamado){
 					if (!value) {
 						alert('Dispositivo não encontrado no banco de dados');
 					}
-
 					setData({id: value, nome: '', value: '2', problema: ''});
-
 				}
 			} catch(e) {
 				// error reading value
@@ -75,8 +79,12 @@ export function Chamado({navigation}: Chamado){
 	}, []);
 
 	  function handleChamado(){
-		navigation.navigate('Home');
-		showToast();
+		if (descricao != null && selectedProblems != 'Selecione') {
+			navigation.navigate('Home');
+			showToast();
+		}else{
+			showError();
+		}
 	}
 
 	if (loading === false) {
@@ -124,23 +132,28 @@ export function Chamado({navigation}: Chamado){
 					name={'Status'}
 				/>
 
-				{selectedProblems != 'Selecione' &&
-					<ButtonChamado
-						onPress={()=> handleChamado()}
-						style={{
-							shadowColor: '#3ac0ff',
-							shadowOffset: {
-								width: 0,
-								height: 7,
-							},
-							shadowOpacity: 1,
-							shadowRadius: 9.11,
 
-							elevation: 20,
-						}}>
-						<TextButton>Abrir chamado</TextButton>
-					</ButtonChamado>
-				}
+				<InputView>
+        	<Input onChangeText={(e: string)=> setDescricao(e)} style={{height: 60, justifyContent: 'flex-start'}} multiline={true} label={'Descrição'}/>
+				</InputView>
+
+
+				<ButtonChamado
+					onPress={()=> handleChamado()}
+					style={{
+						shadowColor: '#3ac0ff',
+						shadowOffset: {
+							width: 0,
+							height: 7,
+						},
+						shadowOpacity: 1,
+						shadowRadius: 9.11,
+
+						elevation: 20,
+					}}>
+					<TextButton>Abrir chamado</TextButton>
+				</ButtonChamado>
+
 			</MainContainer>
 
 		</>

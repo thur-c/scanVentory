@@ -86,8 +86,8 @@ export function Pc({editable, data, showBtn, redirect}: pcProps & any){
 
 	return(
 		<>
-			<Input onChangeText={(e: string)=> setNome(e)} label={'Nome'} value={data.nome} editable={editable}/>
-			<Input onChangeText={(e: string)=> setSsd(e)} label={'SSD'} value={data.ssd} editable={editable}/>
+			<Input placeholder='Ex. PC Qualidade' onChangeText={(e: string)=> setNome(e)} label={'Nome'} value={data.nome} editable={editable}/>
+			<Input onChangeText={(e: string)=> setSsd(e)} label={'Armazenamento'} value={data.ssd} editable={editable}/>
 			<Input onChangeText={(e: string)=> setFonte_bateria(e)} label={'Fonte/Bateria'} value={data.fonte_bateria} editable={editable}/>
 			<Input onChangeText={(e: string)=> setSo(e)} label={'S.O'} value={data.so} editable={editable}/>
 			<Input onChangeText={(e: string)=> setMemoria(e)} label={'Memória'} value={data.memoria} editable={editable}/>
