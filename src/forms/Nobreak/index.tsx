@@ -27,6 +27,8 @@ export function Nobreak({editable, data, showBtn, redirect}: nobreakProps & any)
 	const[entrada, setEntrada] = useState(data.entrada);
 	const[saida, setSaida] = useState(data.saida);
 
+	let errorMessage = '';
+
 	function showToast() {
 		Toast.show({
 			type: 'success',
@@ -39,40 +41,39 @@ export function Nobreak({editable, data, showBtn, redirect}: nobreakProps & any)
 		Toast.show({
 			type: 'error',
 			text1: 'Erro!',
-			text2: 'Os dados não podem ser vazios.',
+			text2: errorMessage,
 		});
 	}
 
 	function handleCadastro(){
-		try {
-			if(nome != null || selectedBivolt != 'Selecione'){
-
-				api.post('/nobreak', {
-					dc_equipamento: data.dc_equipamento,
-					categoria: 1,
-					nome: nome,
-					qnt_tomadas: tomadas,
-					bivolt: selectedBivolt === 'SIM' ? 1 : 0,
-					entrada: entrada,
-					saida: saida,
+		if(nome != null && saida != null && selectedBivolt != 'Selecione'){
+			api.post('/nobreak', {
+				dc_equipamento: data.dc_equipamento,
+				categoria: 1,
+				nome: nome,
+				qnt_tomadas: tomadas,
+				bivolt: selectedBivolt === 'SIM' ? 1 : 0,
+				entrada: entrada,
+				saida: saida,
+			})
+				.then(function (response) {
+					console.log(response);
+					showToast();
+					redirect();
 				})
-					.then(function (response) {
-						console.log(response);
-					})
-					.catch(function (error) {
-						console.log(error);
-					});
-
-
-				showToast();
-				redirect();
-			}else{
-				showError();
-			}
-		} catch (error) {
-			console.log(error);
+				.catch(function(error) {
+					errorMessage = (error.response.data);
+					console.log(error.response.data);
+					showError();
+				});
+		}else if(nome == null){
+			errorMessage = ('Preencha os dados');
+			showError();
 		}
 	}
+
+
+
 
 
 	return(

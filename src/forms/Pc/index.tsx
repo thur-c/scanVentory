@@ -33,6 +33,8 @@ export function Pc({editable, data, showBtn, redirect}: pcProps & any){
 	const [fonte_bateria, setFonte_bateria] = useState(data.fonte_bateria);
 	const [so, setSo] = useState(data.so);
 	const [memoria, setMemoria] = useState(data.memoria);
+	let errorMessage = '';
+
 
 	function showToast() {
 		Toast.show({
@@ -46,42 +48,36 @@ export function Pc({editable, data, showBtn, redirect}: pcProps & any){
 		Toast.show({
 			type: 'error',
 			text1: 'Erro!',
-			text2: 'Os dados não podem ser vazios.',
+			text2: errorMessage,
 		});
 	}
 
 	function handleCadastro(){
-		try {
-			if(nome != null || selectedTipo != 'Selecione'){
-
-				api.post('/pc', {
-					dc_equipamento: data.dc_equipamento,
-					categoria: 2,
-					nome: nome,
-					ssd: ssd,
-					fonte_bateria: fonte_bateria,
-					so: so,
-					memoria: memoria,
-					tipo: selectedTipo === 'PC' ? 1 : 2,
+		if(nome != null && memoria != null && selectedTipo != 'Selecione'){
+			api.post('/pc', {
+				dc_equipamento: data.dc_equipamento,
+				categoria: 2,
+				nome: nome,
+				ssd: ssd,
+				fonte_bateria: fonte_bateria,
+				so: so,
+				memoria: memoria,
+				tipo: selectedTipo === 'PC' ? 1 : 2,
+			})
+				.then(function (response) {
+					console.log(response);
+					showToast();
+					redirect();
 				})
-					.then(function (response) {
-						console.log(response);
-					})
-					.catch(function (error) {
-						console.log(error);
-					});
-
-				showToast();
-				redirect();
-			}else{
-				showError();
-			}
-
-
-		} catch (error) {
-			console.log(error);
+				.catch(function(error) {
+					errorMessage = (error.response.data);
+					console.log(error.response.data);
+					showError();
+				});
+		}else if(nome == null){
+			errorMessage =('Preencha os dados');
+			showError();
 		}
-
 	}
 
 	return(

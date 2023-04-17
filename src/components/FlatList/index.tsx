@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import { FlatList } from 'react-native';
-import {  FlatListView, MainContainer,  MainText, TextItemList, TextView, ViewItemList } from './styles';
+import React from 'react';
+import {  FlatListView, MainContainer, MainText, TextItemList, TextView, ViewItemList } from './styles';
 
 
 type ItemProps = {title: string};
@@ -27,8 +26,8 @@ export default function Flatlist({listData}: any){
 
 			<FlatListView
 				data={listData}
-				renderItem={({item}) => <Item title={item.title} />}
-				keyExtractor={item => item.id}
+				renderItem={({item}: any) => <Item title={item.title} />}
+				keyExtractor={(item: any) => item.id}
 				scrollEnabled={true}
 			/>
 

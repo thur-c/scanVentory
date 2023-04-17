@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Alert, Modal } from 'react-native';
+import React from 'react';
+import { Modal } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Ionicons } from '@expo/vector-icons';
 
 
 
@@ -9,7 +8,6 @@ import Scan from '../Scan';
 
 import {ModalView
 } from './styles';
-import BackButton from '../BackButton/Index';
 
 interface ModalProps {
 	visible: boolean;
